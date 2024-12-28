@@ -1,9 +1,79 @@
-[gd_scene format=3 uid="uid://ug7ny60h616b"]
+[gd_scene load_steps=9 format=3 uid="uid://ug7ny60h616b"]
+
+[ext_resource type="Texture2D" uid="uid://fkcmrw550sr" path="res://kenney_pico-8-platformer/Transparent/Tiles/tile_0034.png" id="1_7gvw8"]
+[ext_resource type="Script" path="res://PlayerMovement.gd" id="2_5bq3l"]
+[ext_resource type="Texture2D" uid="uid://c15y4fq3dh78x" path="res://kenney_pico-8-platformer/Transparent/Tiles/tile_0106.png" id="4_8vii4"]
+[ext_resource type="Texture2D" uid="uid://cdn1sejh2781f" path="res://kenney_pico-8-platformer/Transparent/Tiles/tile_0107.png" id="5_2rfsm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_77gw1"]
+size = Vector2(386, 113)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hd0i1"]
+size = Vector2(39.5, 50)
+
+[sub_resource type="Animation" id="Animation_epf4n"]
+resource_name = "Walking"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_8vii4"), ExtResource("5_2rfsm"), ExtResource("4_8vii4"), ExtResource("5_2rfsm"), ExtResource("4_8vii4")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qk8um"]
+_data = {
+"Walking": SubResource("Animation_epf4n")
+}
 
 [node name="Node2D" type="Node2D"]
+position = Vector2(236, 346)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Platform" type="StaticBody2D" parent="."]
+position = Vector2(373, -113)
+scale = Vector2(1.56307, 1)
 
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Platform"]
+position = Vector2(134.5, 4.50002)
+scale = Vector2(48.125, 13.875)
+texture = ExtResource("1_7gvw8")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform"]
+position = Vector2(135, 4.5)
+shape = SubResource("RectangleShape2D_77gw1")
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(-71, 145)
+scale = Vector2(2.71156, 1.83944)
+
+[node name="Sprite2D" type="Sprite2D" parent="Platform2"]
+position = Vector2(134.5, 4.50002)
+scale = Vector2(48.125, 13.875)
+texture = ExtResource("1_7gvw8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+position = Vector2(135, 4.5)
+shape = SubResource("RectangleShape2D_77gw1")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("2_5bq3l")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(-27, -25.5)
+scale = Vector2(8.25, 8.875)
+texture = ExtResource("4_8vii4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-27, -25)
+shape = SubResource("RectangleShape2D_hd0i1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+libraries = {
+"": SubResource("AnimationLibrary_qk8um")
+}
