@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dhd12hvomua1k"]
+[gd_scene load_steps=8 format=3 uid="uid://dhd12hvomua1k"]
 
 [ext_resource type="Script" path="res://PlayerMovement.gd" id="1_ij8k0"]
 [ext_resource type="Texture2D" uid="uid://c15y4fq3dh78x" path="res://kenney_pico-8-platformer/Transparent/Tiles/tile_0106.png" id="2_5lf2n"]
@@ -28,6 +28,9 @@ _data = {
 "Walking": SubResource("Animation_epf4n")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vbgtg"]
+size = Vector2(40, 50)
+
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_ij8k0")
 
@@ -44,3 +47,9 @@ shape = SubResource("RectangleShape2D_hd0i1")
 libraries = {
 "": SubResource("AnimationLibrary_qk8um")
 }
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-27, -25)
+shape = SubResource("RectangleShape2D_vbgtg")
